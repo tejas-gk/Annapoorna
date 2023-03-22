@@ -4,9 +4,37 @@ import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import Button from '@/components/Button'
 import Navbar from '@/components/Navbar'
+import Filter from '@/components/Filter'
 import Filters from '@/components/Filter'
 
-// const inter = Inter({ subsets: ['latin'] })
+const deliveryFilters = [
+  {
+    id: 1,
+    icon: <i className="fi fi-rr-settings-sliders absolute-center"></i>,
+    title: "Filters",
+  },
+  {
+    id: 2,
+    title: "Rating: 4.0+",
+  },
+  {
+    id: 3,
+    title: "Safe and Hygienic",
+  },
+  {
+    id: 4,
+    title: "Pure Veg",
+  },
+  {
+    id: 5,
+    title: "Delivery Time",
+    icon: <i className="fi fi-rr-apps-sort absolute-center"></i>,
+  },
+  {
+    id: 6,
+    title: "Great Offers",
+  },
+];
 
 export default function Home() {
   return (
@@ -18,21 +46,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <Filters
-        filterList={[
-          {
-            id: 1,
-            title: 'All',
-            icon: <img src="/images/food.svg" width={20} height={20} />,
-          },
-          {
-            id: 2,
-            title: 'Pizza',
-            icon: <img src="/images/pizza.svg" width={20} height={20} />,
-          },
-        ]
-        }
-      />
+      <div className='max-w-7xl'>
+        <Filters filterList={deliveryFilters} />
+      </div>
       <div className='flex flex-col items-center justify-center min-h-screen py-2'>
       {/* <Button
         label="Click me"

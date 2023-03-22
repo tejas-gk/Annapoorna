@@ -1,21 +1,68 @@
-import React from 'react'
-
-export default function Navbar() {
+/* eslint-disable @next/next/no-img-element */
+import React from "react";
+import Image from "next/image";
+import Button from "./Button";
+const Header = () => {
+  
   return (
-      <div className='shadow-bg w-full h-10 bg-white'>
-          <div className='flex justify-between items-center h-full px-4'>
-              <div className='flex items-center'>
-                  <div className='w-5 h-5 bg-sky-500 rounded-full'></div>
-                  <div className='ml-2 text-xl font-semibold'>Resturaunt food</div>
-              </div>
-              <div className='flex items-center'>
-                  <div className='mr-2 text-xl font-semibold hover:text-sky-500 cursor-pointer
-                  '>Home</div>
-                  <div className='mr-2 text-xl font-semibold'>About</div>
-                    <div className='mr-2 text-xl font-semibold'>Login</div>
-              </div>
+    <div className="header w-full flex mb-6 items-center">
+      <img
+        src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png"
+        alt="Zomato-logo"
+        className="header-logo h-7 max-w-[140px] mr-6 ml-16"
+      />
+      <div className="header-right flex flex-1 justify-between items-center h-16">
+        <div className="header-location-search-container 
+        flex h-[3.5rem] rounded-sm w-[70%]
+        items-center border-r-4">
+          <div className="location-wrapper flex flex-1 
+          justify-between px-2 py-0">
+            <div className="location-icon-name flex">
+              <i className="fi fi-rr-marker flex items-center justify-center location-icon"></i>
+              <div>Bangalore</div>
+            </div>
+            <i className="fi fi-rr-caret-down flex items-center justify-center"></i>
+          </div>
+          <div className="location-search-separator h-5 "></div>
+          <div className="header-searchBar flex flex-[2]">
+            <i className="fi fi-rr-search flex items-center 
+            justify-center search-icon"></i>
+            <input
+              className="search-input border-none 
+              w-full font-sm outline-none"
+              placeholder="Search for restaurant, cuisine or a dish"
+            />
           </div>
         </div>
-          
-  )
-}
+
+
+
+        <div className="profile-wrapper flex gap-4 w-[15%] items-center mr-20">
+          <div>
+            <Button
+              label="Login"
+              secondary
+              fullWidth
+              // large
+              onClick={() => console.log("clicked")}
+              // disabled
+              // outline
+            />
+
+          </div>
+          <img
+            src="https://b.zmtcdn.com/images/user_avatars/mug_2x.png?fit=around%7C100%3A100&crop=100%3A100%3B%2A%2C%2A"
+            className="header-profile-image rounded-full h-9 w-9"
+            alt="Profile"
+          />
+          <span
+           className="header-username font-md font-bold cursor-pointer">Tejas</span>
+          <i className="fi fi-rr-angle-small-down flex items-center justify-center
+           profile-options-icon font-xl"></i>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Header;
