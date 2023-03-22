@@ -3,6 +3,8 @@ import Image from 'next/image'
 // import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import Button from '@/components/Button'
+import Navbar from '@/components/Navbar'
+import Filters from '@/components/Filter'
 
 // const inter = Inter({ subsets: ['latin'] })
 
@@ -15,15 +17,33 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Button
+      <Navbar />
+      <Filters
+        filterList={[
+          {
+            id: 1,
+            title: 'All',
+            icon: <img src="/images/food.svg" width={20} height={20} />,
+          },
+          {
+            id: 2,
+            title: 'Pizza',
+            icon: <img src="/images/pizza.svg" width={20} height={20} />,
+          },
+        ]
+        }
+      />
+      <div className='flex flex-col items-center justify-center min-h-screen py-2'>
+      {/* <Button
         label="Click me"
         secondary
         fullWidth
         large
         onClick={() => console.log('clicked')}
         // disabled
-        outline
-      />
+        // outline
+      /> */}
+      </div>
     </>
   )
 }
