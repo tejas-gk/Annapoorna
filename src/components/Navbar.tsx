@@ -43,7 +43,23 @@ const Header = () => {
             <Modal
               buttonLabel='login'
             >
-              kekd
+              <form className="flex flex-col gap-4">
+                <input
+                  type="text"
+                  placeholder="Email"
+                  className="border-2 border-gray-300 p-2 rounded-md"
+                />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  className="border-2 border-gray-300 p-2 rounded-md"
+                />
+                <Button
+                  label="Login"
+                  onClick={() => { }}
+                  // className="bg-zomato-400 text-white"
+                />  
+              </form>
             </Modal>
           </div>
           <img

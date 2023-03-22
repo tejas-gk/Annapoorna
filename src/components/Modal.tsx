@@ -41,9 +41,16 @@ const Modal = ({
             </button>
             {isOpen &&
                 
-                <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-75
+                <div className="fixed
+                 top-0 left-0 right-0 bottom-0
+               
+                   flex items-center justify-center 
+                   z-50 
+                   bg-gray-500 bg-opacity-75
                     ">
-                    <div ref={modalRef} className="bg-white rounded-lg shadow-lg p-6 m-4 max-w-md w-full
+                    <div ref={modalRef} className="bg-white
+                       transition duration-500 ease-in-out
+                    rounded-lg shadow-lg p-6 m-4 max-w-md w-full
                         ">
                         <button
                             title="Close"
