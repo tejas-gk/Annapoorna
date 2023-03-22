@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import Button from "./Button";
+import Modal from "./Modal";
 const Header = () => {
   
   return (
@@ -39,16 +40,11 @@ const Header = () => {
 
         <div className="profile-wrapper flex gap-4 w-[15%] items-center mr-20">
           <div>
-            <Button
-              label="Login"
-              secondary
-              fullWidth
-              // large
-              onClick={() => console.log("clicked")}
-              // disabled
-              // outline
-            />
-
+            <Modal
+              buttonLabel='login'
+            >
+              kekd
+            </Modal>
           </div>
           <img
             src="https://b.zmtcdn.com/images/user_avatars/mug_2x.png?fit=around%7C100%3A100&crop=100%3A100%3B%2A%2C%2A"

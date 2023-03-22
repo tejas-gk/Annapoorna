@@ -6,6 +6,7 @@ import Button from '@/components/Button'
 import Navbar from '@/components/Navbar'
 import Filter from '@/components/Filter'
 import Filters from '@/components/Filter'
+import Modal from '@/components/Modal'
 
 const deliveryFilters = [
   {
@@ -50,15 +51,6 @@ export default function Home() {
         <Filters filterList={deliveryFilters} />
       </div>
       <div className='flex flex-col items-center justify-center min-h-screen py-2'>
-      {/* <Button
-        label="Click me"
-        secondary
-        fullWidth
-        large
-        onClick={() => console.log('clicked')}
-        // disabled
-        // outline
-      /> */}
       </div>
     </>
   )

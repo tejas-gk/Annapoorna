@@ -1,115 +1,65 @@
-import { useCallback } from "react";
-import { AiOutlineClose } from "react-icons/ai";
-import Button from "./Button";
-
+import React, { useState, useRef, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 interface ModalProps {
-    isOpen?: boolean;
-    onClose: () => void;
-    onSubmit: () => void;
-    title?: string;
-    body?: React.ReactElement;
-    footer?: React.ReactElement;
-    actionLabel: string;
-    disabled?: boolean;
+    buttonLabel: string;
+    children: any;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, title, body, actionLabel, footer, disabled }) => {
-    const handleClose = useCallback(() => {
-        if (disabled) {
-            return;
+const Modal = ({
+    children,
+    buttonLabel,
+}:ModalProps) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const modalRef = useRef(null);
+
+    const handleClickOutside = (event: { target: any; }) => {
+        if (modalRef.current && !modalRef.current.contains(event.target)) {
+            setIsOpen(false);
         }
+    };
 
-        onClose();
-    }, [onClose, disabled]);
-
-    const handleSubmit = useCallback(() => {
-        if (disabled) {
-            return;
+    const handleOpen = () => {
+        setIsOpen(true);
+    };
+    
+    useEffect(() => {
+        if (isOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
         }
+    }, [modalRef, setIsOpen, isOpen]);
 
-        onSubmit();
-    }, [onSubmit, disabled]);
-
-    if (!isOpen) {
-        return null;
-    }
+    const handleClose = () => {
+        setIsOpen(false);
+    };
 
     return (
-        <>
-            <div
-                className="
-          justify-center 
-          items-center 
-          flex 
-          overflow-x-hidden 
-          overflow-y-auto 
-          fixed 
-          inset-0 
-          z-50 
-          outline-none 
-          focus:outline-none
-          bg-neutral-800
-          bg-opacity-70
-        "
-            >
-                <div className="relative w-full lg:w-3/6 my-6 mx-auto lg:max-w-3xl h-full lg:h-auto">
-                    {/*content*/}
-                    <div className="
-            h-full
-            lg:h-auto
-            border-0 
-            rounded-lg 
-            shadow-lg 
-            relative 
-            flex 
-            flex-col 
-            w-full 
-            bg-black 
-            outline-none 
-            focus:outline-none
-            "
-                    >
-                        {/*header*/}
-                        <div className="
-              flex 
-              items-center 
-              justify-between 
-              p-10 
-              rounded-t
-              "
-                        >
-                            <h3 className="text-3xl font-semibold text-white">
-                                {title}
-                            </h3>
-                            <button
-                                title="button"
-                                className="
-                  p-1 
-                  ml-auto
-                  border-0 
-                  text-white 
-                  hover:opacity-70
-                  transition
-                "
-                                onClick={handleClose}
-                            >
-                                <AiOutlineClose size={20} />
-                            </button>
-                        </div>
-                        {/*body*/}
-                        <div className="relative p-10 flex-auto">
-                            {body}
-                        </div>
-                        {/*footer*/}
-                        <div className="flex flex-col gap-2 p-10">
-                            <Button disabled={disabled} label={actionLabel} secondary fullWidth large onClick={handleSubmit} />
-                            {footer}
-                        </div>
+        <div>
+            <button onClick={handleOpen} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                {buttonLabel}
+            </button>
+            {isOpen &&
+                
+                <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-75
+                    ">
+                    <div ref={modalRef} className="bg-white rounded-lg shadow-lg p-6 m-4 max-w-md w-full
+                        ">
+                        <button
+                            title="Close"
+                            onClick={handleClose} className="float-right ml-20 
+                             mt-4 mr-4">
+                            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                        {children}
                     </div>
                 </div>
-            </div>
-        </>
+                // document.getElementById('modal-root')
+            }
+        </div>
     );
-}
+};
 
 export default Modal;
