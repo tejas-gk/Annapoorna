@@ -3,8 +3,37 @@ import React from "react";
 import Image from "next/image";
 import Button from "./Button";
 import Modal from "./Modal";
+import axios from "axios";
+import { useState, useEffect, useCallback } from 'react'
+import {signOut} from 'next-auth/react'
+import useCurrentUser from "@/hooks/useCurrentUser";
+import toast from "react-hot-toast";
+
 const Header = () => {
-  
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const { currentUser,isAuthenticated } = useCurrentUser()
+
+  const onSubmit = useCallback(async (e: { preventDefault: () => void; }) => {
+    e.preventDefault()
+    try {
+      await axios.post('/api/register', {
+        name,
+        email,
+        password
+      })
+      toast.success('User created successfully')
+    } catch (error) {
+      console.log(error)
+      toast.error('Something went wrong')
+    }
+  }, [name, email, password])
+
+  useEffect(() => {
+    console.log(currentUser)
+  }, [currentUser])
   return (
     <div className="header w-full flex mb-6 items-center">
       <img
@@ -39,36 +68,54 @@ const Header = () => {
 
 
         <div className="profile-wrapper flex gap-4 w-[15%] items-center mr-20">
-          <div>
-            <Modal
-              buttonLabel='login'
-            >
-              <form className="flex flex-col gap-4">
-                <input
-                  type="text"
-                  placeholder="Email"
-                  className="border-2 border-gray-300 p-2 rounded-md"
-                />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="border-2 border-gray-300 p-2 rounded-md"
-                />
-                <Button
-                  label="Login"
-                  onClick={() => { }}
-                  // className="bg-zomato-400 text-white"
-                />  
-              </form>
-            </Modal>
-          </div>
+          {
+            !isAuthenticated ? (
+              <div>
+                <Modal
+                  buttonLabel='login'
+                >
+                  <form
+                    onSubmit={onSubmit}
+                    className="flex flex-col gap-4">
+                    <input
+                      type="text"
+                      placeholder="Email"
+                      className="border-2 border-gray-300 p-2 rounded-md"
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      className="border-2 border-gray-300 p-2 rounded-md"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <Button
+                      label="Login"
+                      onClick={() => { }}
+                    // className="bg-zomato-400 text-white"
+                    />
+                  </form>
+                </Modal>
+              </div>
+            )
+              : (
+                <div>
+                  <button onClick={() => { 
+                    signOut()
+                    toast.success('User logged out successfully')
+                  }}>Logout</button>
+                </div>
+              )
+        }
           <img
             src="https://b.zmtcdn.com/images/user_avatars/mug_2x.png?fit=around%7C100%3A100&crop=100%3A100%3B%2A%2C%2A"
             className="header-profile-image rounded-full h-9 w-9"
             alt="Profile"
           />
           <span
-           className="header-username font-md font-bold cursor-pointer">Tejas</span>
+            className="header-username font-md font-bold cursor-pointer">
+            {currentUser?.name}
+          </span>
           <i className="fi fi-rr-angle-small-down flex items-center justify-center
            profile-options-icon font-xl"></i>
         </div>
