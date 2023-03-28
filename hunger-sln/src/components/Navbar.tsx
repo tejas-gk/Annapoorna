@@ -14,14 +14,16 @@ const Header = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { currentUser,isAuthenticated } = useCurrentUser()
+  const {data:currentUser} = useCurrentUser()
+
+  // const { currentUser,isAuthenticated } = useCurrentUser()
 
   const onSubmit = useCallback(async (e: { preventDefault: () => void; }) => {
     e.preventDefault()
     try {
       await axios.post('/api/register', {
         name,
-        email,
+        email,  
         password
       })
       toast.success('User created successfully')
@@ -31,16 +33,33 @@ const Header = () => {
     }
   }, [name, email, password])
 
-  useEffect(() => {
-    console.log(currentUser)
-  }, [currentUser])
+  // useEffect(() => {
+  //   console.log(currentUser)
+  //   alert(currentUser)
+  // }, [currentUser])
   return (
     <div className="header w-full flex mb-6 items-center">
-      <img
-        src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png"
-        alt="Zomato-logo"
-        className="header-logo h-7 max-w-[140px] mr-6 ml-16"
-      />
+      <h1
+        className="font-bold
+      text-2xl text-gray-800 
+        "
+      >
+        Logo
+      </h1>
+      {
+        currentUser && (
+          <div className="flex items-center gap-4">
+            {
+              currentUser?.id
+            }
+            </div>
+        )
+        
+      }
+
+      {
+        console.log(currentUser,'kk')
+      }
       <div className="header-right flex flex-1 justify-between items-center h-16">
         <div className="header-location-search-container 
         flex h-[3.5rem] rounded-sm w-[70%]
@@ -68,8 +87,8 @@ const Header = () => {
 
 
         <div className="profile-wrapper flex gap-4 w-[15%] items-center mr-20">
-          {
-            !isAuthenticated ? (
+          {/* { */}
+            {/* // */}
               <div>
                 <Modal
                   buttonLabel='login'
@@ -97,16 +116,16 @@ const Header = () => {
                   </form>
                 </Modal>
               </div>
-            )
-              : (
+            {/* // ) */}
+              {/* // : ( */}
                 <div>
                   <button onClick={() => { 
                     signOut()
                     toast.success('User logged out successfully')
                   }}>Logout</button>
                 </div>
-              )
-        }
+              {/* // ) */}
+        {/* // } */}
           <img
             src="https://b.zmtcdn.com/images/user_avatars/mug_2x.png?fit=around%7C100%3A100&crop=100%3A100%3B%2A%2C%2A"
             className="header-profile-image rounded-full h-9 w-9"
@@ -114,7 +133,7 @@ const Header = () => {
           />
           <span
             className="header-username font-md font-bold cursor-pointer">
-            {currentUser?.name}
+            {/* {currentUser?.name} */}
           </span>
           <i className="fi fi-rr-angle-small-down flex items-center justify-center
            profile-options-icon font-xl"></i>

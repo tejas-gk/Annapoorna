@@ -9,7 +9,6 @@ import {
 export default function App({ Component, pageProps }: AppProps) {
   return<>
    <SessionProvider session={pageProps.session}> 
-
       <Component {...pageProps} />
       <Toaster />
     </SessionProvider>
