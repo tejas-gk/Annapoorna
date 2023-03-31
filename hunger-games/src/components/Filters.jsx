@@ -50,14 +50,14 @@ const Filters = () => {
                     inline
                     label="Include Out of Stock"
                     name="group1"
-                    type="checkbox"
                     id={`inline-3`}
+                    type="switch"
                     onChange={() =>
                         productDispatch({
                             type: "FILTER_BY_STOCK",
                         })
                     }
-                    checked={byStock}
+                    checked={byStock}   
                 />
             </span>
             <span>
@@ -65,7 +65,7 @@ const Filters = () => {
                     inline
                     label="Fast Delivery Only"
                     name="group1"
-                    type="checkbox"
+                    type="switch"
                     id={`inline-4`}
                     onChange={() =>
                         productDispatch({

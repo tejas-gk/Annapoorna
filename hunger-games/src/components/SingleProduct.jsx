@@ -43,7 +43,8 @@ const SingleProduct = ({ prod }) => {
                                     payload: prod,
                                 })
                             }
-                            disabled={!prod.inStock}
+                                disabled={!prod.inStock}
+                                
                         >
                             {!prod.inStock ? "Out of Stock" : "Add to Cart"}
                         </Button>
